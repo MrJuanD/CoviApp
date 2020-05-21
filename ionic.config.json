@@ -1,0 +1,7 @@
+{
+  "name": "CoviApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
