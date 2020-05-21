@@ -1,4 +1,67 @@
-<div id="container">
-  <strong>{{ name }}</strong>
-  <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<div *ngIf="pageNumber == 1" id="container">
+  <div *ngIf="global; else error">
+    <h1 class="main-header">Global statistics</h1>
+    <h2 class="confirmed">New confirmed: {{global.NewConfirmed}}</h2>
+    <h2 class="confirmed">Total confirmed: {{global.TotalConfirmed}}</h2>
+    <h2 class="recovered">New recovered: {{global.NewRecovered}}</h2>
+    <h2 class="recovered">Total recovered: {{global.TotalRecovered}}</h2>
+    <h2 class="deaths">New deaths: {{global.NewDeaths}}</h2>
+    <h2 class="deaths">Total deaths: {{global.TotalDeaths}}</h2>
+    <p>Last update: {{formatDate(date)}}</p>
+  </div>
+  <ng-template #error>Cannot connect with the server. Check your internet connection. If it's okay wait a few minutes and try again.</ng-template>
+</div>
+
+
+<ion-content *ngIf="pageNumber == 2" [fullscreen]="true">
+  <div *ngIf="countryList; else error">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">List of countries</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list *ngIf="filteredCountryList">
+    <ion-list-header>
+      <ion-item>
+        <ion-label position="floating">Search</ion-label>
+        <ion-input clearInput (ionChange)="filter($event)"></ion-input>
+      </ion-item>
+    </ion-list-header>
+
+    <ion-item *ngFor="let item of filteredCountryList">
+      <ion-avatar slot="start">
+        <img src="{{'https://www.countryflags.io/' + item.CountryCode + '/flat/64.png'}}">
+      </ion-avatar>
+      <ion-label>
+        <h1>{{item.Country}}</h1>
+        <h2 class="confirmed">New confirmed: {{item.NewConfirmed}}</h2>
+        <h2 class="confirmed">Total confirmed: {{item.TotalConfirmed}}</h2>
+        <h2 class="recovered">New recovered: {{item.NewRecovered}}</h2>
+        <h2 class="recovered">Total recovered: {{item.TotalRecovered}}</h2>
+        <h2 class="deaths">New deaths: {{item.NewDeaths}}</h2>
+        <h2 class="deaths">Total deaths: {{item.TotalDeaths}}</h2>
+        <p>Last update date: {{formatDate(item.Date)}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+  <ng-template #error>Cannot connect with the server. Check your internet connection. If it's okay wait a few minutes and try again.</ng-template>
+</ion-content>
+
+
+<div *ngIf="pageNumber == 3">
+  <ion-card *ngFor="let element of informations">
+    <ion-item>
+      <ion-icon name="{{element.icon}}" slot="start"></ion-icon>
+      <ion-label>{{element.title}}</ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      <div *ngFor="let element2 of element.paragraphs">
+        <p>{{element2}}</p>
+        <br />
+      </div>
+    </ion-card-content>
+  </ion-card>
 </div>

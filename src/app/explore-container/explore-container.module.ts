@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ExploreContainerComponent } from './explore-container.component';
+import { CovidService } from '../services/covid.service';
 
 @NgModule({
   imports: [ CommonModule, FormsModule, IonicModule],
   declarations: [ExploreContainerComponent],
-  exports: [ExploreContainerComponent]
+  exports: [ExploreContainerComponent],
+  providers: [CovidService]
 })
 export class ExploreContainerComponentModule {}
